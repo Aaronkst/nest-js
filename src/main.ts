@@ -5,6 +5,7 @@ import {
   NestFastifyApplication,
 } from "@nestjs/platform-fastify";
 import { AppModule } from "./app.module";
+import { ValidationPipe } from "@nestjs/common";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -13,12 +14,18 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle("API Routes")
-    .setDescription("Nest JS API description")
+    .setTitle("Heroes")
+    .setDescription("Heroes API description")
     .setVersion("1.0")
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("help", app, document);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      disableErrorMessages: true,
+    }),
+  );
 
   await app.listen(3000, "0.0.0.0");
 }

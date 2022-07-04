@@ -2,6 +2,7 @@ import { DynamicModule, Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { DataSource } from "typeorm";
 
 import { AppController } from "./app.controller";
 import { HeroesModule } from "./modules/heroes.module";
@@ -9,11 +10,11 @@ import { HeroesModule } from "./modules/heroes.module";
 import { AppService } from "./app.service";
 import { Heroes } from "./entities/heroes.entity";
 
-const app: DynamicModule = ConfigModule.forRoot({
+const App: DynamicModule = ConfigModule.forRoot({
   envFilePath: ".env",
 });
 
-const db: DynamicModule = TypeOrmModule.forRoot({
+const Database: DynamicModule = TypeOrmModule.forRoot({
   type: "postgres",
   host: process.env.DB_HOST,
   port: 5432,
@@ -25,7 +26,7 @@ const db: DynamicModule = TypeOrmModule.forRoot({
 });
 
 @Module({
-  imports: [app, db, HeroesModule],
+  imports: [App, Database, HeroesModule],
   controllers: [AppController],
   providers: [AppService],
 })

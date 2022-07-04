@@ -1,28 +1,118 @@
-import { Controller, Get, Post } from "@nestjs/common";
+import {
+  Controller,
+  Body,
+  Get,
+  Post,
+  HttpException,
+  HttpStatus,
+  Param,
+} from "@nestjs/common";
 import { HeroesService } from "../services/heroes.service";
-import { IErrorResponse, ISuccessResponse } from "../interface/app.interface";
-import { IHeroes, IHeroesList } from "src/interface/heroes.interface";
+import { ISuccessResponse } from "../interface/app.interface";
+import { IHeroesList } from "src/interface/heroes.interface";
+import {
+  CreateHeroDto,
+  DeleteHeroDto,
+  EditHeroDto,
+} from "src/dtos/heroes.dtos";
+import { ApiParam } from "@nestjs/swagger";
 
 @Controller("api/heroes")
 export class HeroesController {
-  constructor(private readonly heroesService: HeroesService) {}
+  constructor(private readonly heroes: HeroesService) {}
 
   @Get()
-  async getHeroes(): Promise<ISuccessResponse | IErrorResponse> {
+  async getHeroes(): Promise<ISuccessResponse> {
     try {
-      const heroes: IHeroesList | IHeroes =
-        await this.heroesService.getHeroes();
+      const heroes: IHeroesList = await this.heroes.getHeroes();
       return {
-        status: 200,
+        status: "success",
         total: heroes.total,
         data: heroes.data,
         timestamp: new Date().getTime(),
       };
     } catch (e) {
+      throw new HttpException(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @ApiParam({
+    name: "id",
+    description: "Hero Id",
+    example: "e5bb079a-419e-4edf-855e-eeee9f7b5916",
+  })
+  @Get(":id")
+  async getHeroById(@Param("id") id: string): Promise<ISuccessResponse> {
+    try {
       return {
-        status: 500,
-        message: e.message,
+        status: "success",
+        data: await this.heroes.getHeroById(id),
+        timestamp: new Date().getTime(),
       };
+    } catch (e) {
+      throw new HttpException(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Post("/insert")
+  async addHero(@Body() payload: CreateHeroDto): Promise<ISuccessResponse> {
+    try {
+      return {
+        status: "success",
+        data: await this.heroes.insertHero({
+          ...payload,
+        }),
+        timestamp: new Date().getTime(),
+      };
+    } catch (e) {
+      throw new HttpException(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Post("/update")
+  async updateHero(@Body() payload: EditHeroDto): Promise<ISuccessResponse> {
+    if (!payload.name && !payload.description)
+      throw new HttpException("Bad Request", HttpStatus.BAD_REQUEST);
+    try {
+      return {
+        status: "success",
+        data: await this.heroes.updateHero({
+          ...payload,
+        }),
+        timestamp: new Date().getTime(),
+      };
+    } catch (e) {
+      throw new HttpException(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Post("/delete")
+  async deleteHero(@Body() payload: DeleteHeroDto): Promise<ISuccessResponse> {
+    try {
+      return {
+        status: "success",
+        data: await this.heroes.deleteHero({
+          ...payload,
+        }),
+        timestamp: new Date().getTime(),
+      };
+    } catch (e) {
+      throw new HttpException(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

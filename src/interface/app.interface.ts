@@ -1,10 +1,6 @@
 export interface IResponse {
-  status: number;
+  status: string;
   timestamp?: number;
-}
-
-export interface IErrorResponse extends IResponse {
-  message: string;
 }
 
 export interface ISuccessResponse extends IResponse {
