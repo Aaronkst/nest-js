@@ -1,13 +1,17 @@
-interface IResponse {
-  status: string;
+export interface IResponse {
+  status: number;
   timestamp?: number;
 }
 
-export interface ISuccess extends IResponse {
-  data: unknown;
-  length?: number;
+export interface IErrorResponse extends IResponse {
+  message: string;
 }
 
-export interface IError extends IResponse {
-  message: string;
+export interface ISuccessResponse extends IResponse {
+  total?: number;
+  data: any;
+}
+
+export interface IHello {
+  data: string;
 }
