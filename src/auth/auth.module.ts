@@ -4,6 +4,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { UsersModule } from "../users/users.module";
 import { LocalStrategy } from "./auth.local.strategy";
+import { JwtStrategy } from "./auth.jwt.strategy";
 import { AuthService } from "./auth.service";
 
 const App: DynamicModule = ConfigModule.forRoot({
@@ -18,6 +19,6 @@ const JWT = JwtModule.register({
 @Module({
   imports: [App, UsersModule, PassportModule, JWT],
   exports: [AuthService],
-  providers: [AuthService, LocalStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}

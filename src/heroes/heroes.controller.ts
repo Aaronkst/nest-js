@@ -6,12 +6,14 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  UseGuards,
 } from "@nestjs/common";
 import { HeroesService } from "./heroes.service";
 import { ISuccessResponse } from "../app.interface";
 import { IHeroesList } from "./heroes.interface";
 import { CreateHeroDto, DeleteHeroDto, EditHeroDto } from "./heroes.dtos";
 import { ApiParam } from "@nestjs/swagger";
+import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
 @Controller("api/heroes")
 export class HeroesController {
@@ -56,6 +58,7 @@ export class HeroesController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post("/insert")
   async addHero(@Body() payload: CreateHeroDto): Promise<ISuccessResponse> {
     try {
@@ -74,6 +77,7 @@ export class HeroesController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post("/update")
   async updateHero(@Body() payload: EditHeroDto): Promise<ISuccessResponse> {
     if (!payload.name && !payload.description)
@@ -94,6 +98,7 @@ export class HeroesController {
     }
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post("/delete")
   async deleteHero(@Body() payload: DeleteHeroDto): Promise<ISuccessResponse> {
     try {

@@ -11,8 +11,8 @@ export class AuthService {
     try {
       const user = await this.users.validateUser(username, password);
       if (user) {
-        const { password, ...relt } = user;
-        return relt;
+        delete user.password;
+        return user;
       }
       return null;
     } catch (e) {

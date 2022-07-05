@@ -7,7 +7,7 @@ import {
 } from "./heroes.interface";
 
 import { InjectRepository } from "@nestjs/typeorm";
-import { DeleteResult, Repository, UpdateResult } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 import { Heroes } from "./heroes.entity";
 
 @Injectable()
