@@ -4,11 +4,11 @@ import {
   IHeroesList,
   IHeroInsert,
   IHeroUpdate,
-} from "../interface/heroes.interface";
+} from "./heroes.interface";
 
 import { InjectRepository } from "@nestjs/typeorm";
-import { DeleteResult, Repository } from "typeorm";
-import { Heroes } from "../entities/heroes.entity";
+import { DeleteResult, Repository, UpdateResult } from "typeorm";
+import { Heroes } from "./heroes.entity";
 
 @Injectable()
 export class HeroesService {
@@ -36,24 +36,28 @@ export class HeroesService {
 
   async insertHero({ name, description }: IHeroInsert): Promise<IHeroes> {
     try {
-      return await this.heroes.save({ name, description });
+      return this.heroes.create({ name, description });
     } catch (e) {
       throw e;
     }
   }
 
-  async updateHero({ id, name, description }: IHeroUpdate): Promise<IHeroes> {
+  async updateHero({
+    id,
+    name,
+    description,
+  }: IHeroUpdate): Promise<UpdateResult> {
     try {
-      const hero = await this.heroes.findOneByOrFail({ id });
+      const hero: { name?: string; description?: string } = {};
       if (name) hero.name = name;
       if (description) hero.description = description;
-      return await this.heroes.save(hero);
+      return await this.heroes.update({ id }, { name, description });
     } catch (e) {
       throw e;
     }
   }
 
-  async deleteHero({ id }: IHeroUpdate): Promise<DeleteResult> {
+  async deleteHero(id: string): Promise<DeleteResult> {
     try {
       return await this.heroes.delete({ id });
     } catch (e) {

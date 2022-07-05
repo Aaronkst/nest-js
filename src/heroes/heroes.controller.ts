@@ -7,14 +7,10 @@ import {
   HttpStatus,
   Param,
 } from "@nestjs/common";
-import { HeroesService } from "../services/heroes.service";
-import { ISuccessResponse } from "../interface/app.interface";
-import { IHeroesList } from "src/interface/heroes.interface";
-import {
-  CreateHeroDto,
-  DeleteHeroDto,
-  EditHeroDto,
-} from "src/dtos/heroes.dtos";
+import { HeroesService } from "./heroes.service";
+import { ISuccessResponse } from "../app.interface";
+import { IHeroesList } from "./heroes.interface";
+import { CreateHeroDto, DeleteHeroDto, EditHeroDto } from "./heroes.dtos";
 import { ApiParam } from "@nestjs/swagger";
 
 @Controller("api/heroes")
@@ -103,9 +99,7 @@ export class HeroesController {
     try {
       return {
         status: "success",
-        data: await this.heroes.deleteHero({
-          ...payload,
-        }),
+        data: await this.heroes.deleteHero(payload.id),
         timestamp: new Date().getTime(),
       };
     } catch (e) {
