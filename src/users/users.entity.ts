@@ -5,6 +5,8 @@ import {
   PrimaryGeneratedColumn,
   BeforeInsert,
   BeforeUpdate,
+  AfterInsert,
+  AfterUpdate,
 } from "typeorm";
 import { hash, compare } from "bcrypt";
 
@@ -15,11 +17,16 @@ export enum UserRole {
 
 @Entity()
 export class Users {
-  @BeforeInsert()
   @BeforeUpdate()
+  @BeforeInsert()
   async bcryptPassword() {
-    if (this.password) this.password = await hash(this.password, 16);
-    return true;
+    this.password = await hash(this.password, 10);
+  }
+
+  @AfterInsert()
+  @AfterUpdate()
+  async removePassword() {
+    if (this.password) delete this.password;
   }
 
   async validatePassword(password: string): Promise<boolean> {
@@ -30,7 +37,7 @@ export class Users {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ unique: true })
+  @Column()
   name: string;
 
   @Column()

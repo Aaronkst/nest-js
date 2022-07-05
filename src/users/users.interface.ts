@@ -8,8 +8,16 @@ export interface IUser {
   role: UserRole;
 }
 
+export interface IUserReturn {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+}
+
 export interface IUserInsert {
   name: string;
   password: string;
+  email: string;
   role?: UserRole;
 }

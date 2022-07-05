@@ -3,7 +3,7 @@ import { IUser, IUserInsert } from "./users.interface";
 
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { UserRole, Users } from "./users.entity";
+import { Users } from "./users.entity";
 
 @Injectable()
 export class UsersService {
@@ -12,9 +12,19 @@ export class UsersService {
     private users: Repository<Users>,
   ) {}
 
-  async registerUser({ name, password, role }: IUserInsert): Promise<IUser> {
+  async registerUser({
+    name,
+    password,
+    email,
+    role,
+  }: IUserInsert): Promise<IUser> {
     try {
-      return this.users.create({ name, password, role });
+      const user = new Users();
+      user.name = name;
+      user.password = password;
+      user.email = email;
+      user.role = role;
+      return this.users.save(user);
     } catch (e) {
       throw e;
     }
@@ -22,18 +32,11 @@ export class UsersService {
 
   async validateUser(email: string, password: string): Promise<IUser> {
     try {
-      return {
-        id: "foo",
-        name: "John Doe",
-        email: "bar@gmail.com",
-        password: "supersecret",
-        role: UserRole.ADMIN,
-      };
-      /*const user = await this.users.findOneByOrFail({ email });
+      const user = await this.users.findOneBy({ email });
       if (!user) throw new Error("Invalid User");
       const isValid: boolean = await user.validatePassword(password);
       if (!isValid) throw new Error("Invalid Password");
-      return user;*/
+      return user;
     } catch (e) {
       throw e;
     }

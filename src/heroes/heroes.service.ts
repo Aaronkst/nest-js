@@ -36,22 +36,21 @@ export class HeroesService {
 
   async insertHero({ name, description }: IHeroInsert): Promise<IHeroes> {
     try {
-      return this.heroes.create({ name, description });
+      const hero = new Heroes();
+      hero.name = name;
+      if (description) hero.description = description;
+      return this.heroes.create(hero);
     } catch (e) {
       throw e;
     }
   }
 
-  async updateHero({
-    id,
-    name,
-    description,
-  }: IHeroUpdate): Promise<UpdateResult> {
+  async updateHero({ id, name, description }: IHeroUpdate): Promise<IHeroes> {
     try {
-      const hero: { name?: string; description?: string } = {};
+      const hero = await this.heroes.findOneBy({ id });
       if (name) hero.name = name;
       if (description) hero.description = description;
-      return await this.heroes.update({ id }, { name, description });
+      return await this.heroes.save(hero);
     } catch (e) {
       throw e;
     }
