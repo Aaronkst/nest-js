@@ -9,14 +9,13 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
-import { AuthGuard } from "@nestjs/passport";
 import { ISuccessResponse } from "../app.interface";
 //import { CreateHeroDto, DeleteHeroDto, EditHeroDto } from "./heroes.dtos";
 import { ApiParam } from "@nestjs/swagger";
 
 @Controller("api/users")
 export class UsersController {
-  constructor(private readonly heroes: UsersService) {}
+  constructor(private readonly users: UsersService) {}
 
   /*@Get()
   async getHeroes(): Promise<ISuccessResponse> {

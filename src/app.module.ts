@@ -10,7 +10,7 @@ import { UsersModule } from "./users/users.module";
 import { AppService } from "./app.service";
 import { Heroes } from "./heroes/heroes.entity";
 import { Users } from "./users/users.entity";
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from "./auth/auth.module";
 
 const App: DynamicModule = ConfigModule.forRoot({
   envFilePath: ".env",
