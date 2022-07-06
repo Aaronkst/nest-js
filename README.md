@@ -75,5 +75,5 @@ JWT_SECRET=yourjwtsecret
 
 ## Enquiries
 
-My email: <a href="mailto:dev.kst.aaron@gmail.com">dev.kst.aaron@gmail.com</a>
+My email: <a href="mailto:dev.kst.aaron@gmail.com">dev.kst.aaron@gmail.com</a><br />
 My portfolio: <a href="https://khantsithu.netlify.app">khantsithu.netlify.app</a>
