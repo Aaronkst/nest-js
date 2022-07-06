@@ -13,7 +13,7 @@ import { ISuccessResponse } from "../app.interface";
 import { IHeroesList } from "./heroes.interface";
 import { CreateHeroDto, DeleteHeroDto, EditHeroDto } from "./heroes.dtos";
 import { ApiParam } from "@nestjs/swagger";
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 
 @Controller("api/heroes")
 export class HeroesController {
