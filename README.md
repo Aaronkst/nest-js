@@ -60,6 +60,10 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Api Routes
+
+Swagger documentation available at "/help"
+
 ## Prerequesites
 
 ### Database
