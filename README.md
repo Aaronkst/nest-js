@@ -66,8 +66,14 @@ Requires a postgres database server running on port 5432. This app will use the 
 
 ### .env
 
-```DB_HOST=localhost
+```env
+DB_HOST=localhost
 DB_USER=yourdbuser
 DB_PASS=yourdbpassword
 JWT_SECRET=yourjwtsecret
 ```
+
+## Enquiries
+
+My email: <a href="mailto:dev.kst.aaron@gmail.com">dev.kst.aaron@gmail.com</a>
+My portfolio: <a href="https://khantsithu.netlify.app">khantsithu.netlify.app</a>
