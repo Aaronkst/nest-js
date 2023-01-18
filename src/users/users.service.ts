@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { IUser, IUserInsert } from "./users.interface";
+import { IUser, IUserInsert } from "../lib/types/users";
 
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";

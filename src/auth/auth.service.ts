@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { IUserPublic } from "../users/users.interface";
+import { IUserPublic } from "../lib/types/users";
 import { UsersService } from "../users/users.service";
 
 @Injectable()

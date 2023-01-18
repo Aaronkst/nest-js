@@ -9,8 +9,8 @@ import {
   UseGuards,
 } from "@nestjs/common";
 import { HeroesService } from "./heroes.service";
-import { ISuccessResponse } from "../app.interface";
-import { IHeroesList } from "./heroes.interface";
+import { ISuccessResponse } from "../lib/types/common";
+import { IHeroesList } from "../lib/types/heroes";
 import { CreateHeroDto, DeleteHeroDto, EditHeroDto } from "./heroes.dtos";
 import { ApiParam } from "@nestjs/swagger";
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";

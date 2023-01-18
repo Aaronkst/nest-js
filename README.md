@@ -1,5 +1,7 @@
 # [Nest](https://github.com/nestjs/nest) Backend Template
 
+<img src="https://docs.nestjs.com/assets/logo-small.svg" alt="NestJS" style="height: 100px;" />
+
 ## Installation
 
 ```bash
@@ -32,15 +34,15 @@ yarn test:e2e
 yarn test:cov
 ```
 
-## Api Routes
+## Swagger Documentation
 
-Swagger documentation available at "/help"
+Swagger documentation available at `/help`
 
-## Prerequesites
+## Prerequisites
 
 ### Database
 
-Requires a postgres database server running on port 5432. This app will use the default 'postgres' database.
+Requires a postgres database server running on port `5432`
 
 ### Environment Variables
 

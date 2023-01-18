@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Request, UseGuards } from "@nestjs/common";
 import { AppService } from "./app.service";
-import { IHello } from "./app.interface";
+import { IHello } from "./lib/types/common";
 import { LocalAuthGuard } from "./auth/local-auth.guard";
 import { AuthService } from "./auth/auth.service";
 

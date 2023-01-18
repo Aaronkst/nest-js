@@ -9,7 +9,7 @@ import {
   //UseGuards,
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
-import { ISuccessResponse } from "../app.interface";
+import { ISuccessResponse } from "../lib/types/common";
 import { CreateUserDto } from "./users.dtos";
 //import { ApiParam } from "@nestjs/swagger";
 

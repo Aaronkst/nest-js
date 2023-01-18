@@ -9,11 +9,7 @@ import {
   AfterUpdate,
 } from "typeorm";
 import { hash, compare } from "bcrypt";
-
-export enum UserRole {
-  ADMIN = "admin",
-  USER = "user",
-}
+import { UserRole } from "../lib/types/users";
 
 @Entity()
 export class Users {
