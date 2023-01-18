@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
-import { IUserReturn } from "../users/users.interface";
+import { IUserPublic } from "../users/users.interface";
 import { UsersService } from "../users/users.service";
 
 @Injectable()
 export class AuthService {
   constructor(private users: UsersService, private jwtService: JwtService) {}
 
-  async validateUser(username: string, password: string): Promise<IUserReturn> {
+  async validateUser(username: string, password: string): Promise<IUserPublic> {
     try {
       const user = await this.users.validateUser(username, password);
       if (user) {
@@ -24,8 +24,8 @@ export class AuthService {
     }
   }
 
-  async login(user: any) {
-    const payload = { email: user.email, id: user.id };
+  async login(user: IUserPublic) {
+    const payload = { id: user.id };
     return {
       user,
       access_token: this.jwtService.sign(payload),

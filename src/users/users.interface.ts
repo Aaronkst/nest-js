@@ -8,7 +8,7 @@ export interface IUser {
   role: UserRole;
 }
 
-export interface IUserReturn {
+export interface IUserPublic {
   id: string;
   name: string;
   email: string;
