@@ -22,7 +22,7 @@ const Database: DynamicModule = TypeOrmModule.forRoot({
   port: 5432,
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: "postgres",
+  database: process.env.DB_NAME,
   entities: [Heroes, Users],
   synchronize: true,
 });
